@@ -1,6 +1,9 @@
 var playerScore = document.getElementById("player_score");
 var computerScore = document.getElementById("computer_score");
 
+var playerContainer=document.getElementById("player_container");
+var computerContainer=document.getElementById("computer_container");
+
 var playerChoiceImg=document.getElementById("player_choice");
 var computerChoiceImg= document.getElementById("computer_choice");
 
@@ -24,19 +27,19 @@ function playGame(playerChoice) {
 
 function determineWinner(playerChoice, computerChoice) {
     if (playerChoice === computerChoice) {
-        flashResult()
+        flashResult(playerContainer,playerScore);
+        flashResult(computerContainer,computerScore);
     } else if ((playerChoice === "Rock" && computerChoice === "Scissors") || 
                 (playerChoice === "Paper" && computerChoice === "Rock") || 
                 (playerChoice === "Scissors" && computerChoice === "Paper")) {
-        flashResult(document.getElementById("player_container"));
-        playerScore.textContent=(parseInt(playerScore.textContent) + 1).toString();
+        flashResult(playerContainer,playerScore);
+        
     } else {
-        flashResult(document.getElementById("computer_container"));
-        computerScore.textContent=(parseInt(computerScore.textContent) + 1).toString();;
+        flashResult(computerContainer,computerScore);
     }
 }
 
-function flashResult(container){
+function flashResult(container,score){
     var originalBackgroundColor="white";
     var flashingColor = "green";
     var flashDuration = 2000; 
@@ -45,13 +48,13 @@ function flashResult(container){
 
     var flashIntervalId = setInterval(function () {
         container.style.backgroundColor = (flashCount % 2 === 0) ? flashingColor : originalBackgroundColor;
-
         flashCount++;
         if (flashCount >= flashDuration / flashInterval) {
             clearInterval(flashIntervalId);
             container.style.backgroundColor = originalBackgroundColor;
+            score.textContent=(parseInt(score.textContent) + 1).toString();;
         }
-    }, flashInterval);
+    },flashInterval);
 }
 
 
