@@ -12,9 +12,13 @@ const rock = document.getElementById("rock_pic");
 const paper = document.getElementById("paper_pic");
 const scissors = document.getElementById("scissors_pic");
 
+
 rock.addEventListener("click", () => playGame(choices[0]));
 paper.addEventListener("click", () => playGame(choices[1]));
 scissors.addEventListener("click", () => playGame(choices[2]));
+
+const button=document.getElementById("resetButton");
+button.onclick=resetScore
 
 function playGame(playerChoice) {
     console.log("Player chose: "+ playerChoice)
@@ -52,9 +56,15 @@ function flashResult(container,score){
         if (flashCount >= flashDuration / flashInterval) {
             clearInterval(flashIntervalId);
             container.style.backgroundColor = originalBackgroundColor;
-            score.textContent=(parseInt(score.textContent) + 1).toString();;
+            score.textContent=(parseInt(score.textContent) + 1).toString();
         }
     },flashInterval);
 }
+
+function resetScore(){
+    playerScore.textContent="0";
+    computerScore.textContent="0";
+}
+
 
 
